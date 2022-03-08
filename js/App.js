@@ -16,8 +16,13 @@ class App {
             document.querySelector("#txtFecha").value = fechaDeHoy();
             new App().fnLlenaComboTipoDeSeguro();
 
-            document.querySelector("#cboTipoDeSeguro").addEventListener("change", () => {
-                console.log("Elegiste")
+            const combo = document.querySelector("#cboTipoDeSeguro");
+            let aplicacion=null;
+            let eleccion=null;
+            combo.addEventListener("change", () => {
+                aplicacion = combo.value
+                eleccion=combo.options[combo.selectedIndex].text;
+                console.log(`Elegiste: ${eleccion} Aplicación: ${aplicacion}`);
             })
         }
     }
@@ -33,7 +38,7 @@ class App {
                 strOpciones = `<option value="0" selected>Seleccione</option>`;
                 // const datos = response.data;
                 for (let d of datos) {
-                    strOpciones += `<option value="${d.id}">${d.nombreseguro}</option>`;
+                    strOpciones += `<option value="${d.aplicacion}">${d.nombreseguro}</option>`;
                 }
                 document.querySelector("#cboTipoDeSeguro").innerHTML = strOpciones;
             }

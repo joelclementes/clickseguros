@@ -23,7 +23,7 @@
 
 <body class="container">
     <header id="header">
-        <div class="card border-light" >
+        <div class="card border-light">
             <div class="card-body d-flex align-items-center justify-content-around flex-wrap">
                 <div>
                     <img src="./images/logo.jpeg" style="width:236px; height:35px" alt="Click seguros">
@@ -36,7 +36,7 @@
         <br>
     </header>
 
-    <section id="datosgenerales">
+    <section class="container" id="datosgenerales">
         <div class="row">
             <div class="col-sm-12 col-md-6">
                 <div class="mb-3">
@@ -67,11 +67,13 @@
                 </div>
                 <div class="mb-3">
                     <label for="txtCorreo" class="form-label">Correo</label>
-                    <input type="email" class="form-control" name="txtCorreo" id="txtCorreo" placeholder="correo@ejemplo.com">
+                    <input type="email" class="form-control" name="txtCorreo" id="txtCorreo"
+                        placeholder="correo@ejemplo.com">
                 </div>
                 <div class="mb-3">
                     <label for="txtCodigoDeEpisodio" class="form-label">Código de episodio</label>
-                    <input type="text" class="form-control" name="txtCodigoDeEpisodio" id="txtCodigoDeEpisodio" placeholder="">
+                    <input type="text" class="form-control" name="txtCodigoDeEpisodio" id="txtCodigoDeEpisodio"
+                        placeholder="">
                 </div>
             </div>
         </div>
@@ -80,13 +82,67 @@
                 <label for="cboTipoDeSeguro" class="form-label">Tipo de seguro</label>
                 <select class="form-select" name="cboTipoDeSeguro" id="cboTipoDeSeguro" placeholder=""></select>
             </div>
-        </div>`;
+        </div>
     </section>
 
-    <section id="vehiculos">
-        
+    <!-- SECCIÓN VEHÍCULOS -->
+    <section class="container form__vehiculos" id="Vehículo">
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <div class="mb-3">
+                    <label for="cboTipoPersonaVehiculo" class="form-label">Tipo de persona</label>
+                    <select class="form-select" name="cboTipoPersonaVehiculo" id="cboTipoPersonaVehiculo"
+                        placeholder="">
+                        <option value="0" selected>Seleccione</option>
+                        <option value="Persona Física" >Persona Física</option>
+                        <option value="Persona Moral" >Persona Moral</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="txtModeloVehiculo" class="form-label">Modelo</label>
+                    <input type="text" class="form-control" name="txtModeloVehiculo" id="txtModeloVehiculo"
+                        placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label for="txtMarcaVehiculo" class="form-label">Marca</label>
+                    <input type="text" class="form-control" name="txtMarcaVehiculo" id="txtMarcaVehiculo"
+                        placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label for="txtVersionVehiculo" class="form-label">Versión</label>
+                    <input type="text" class="form-control" name="txtVersionVehiculo" id="txtVersionVehiculo"
+                        placeholder="">
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="mb-3">
+                    <label for="txtTransmisionVehiculo" class="form-label">Transmisión</label>
+                    <select class="form-select" name="cboTipoCoberturaVehiculo" id="cboTipoCoberturaVehiculo"
+                        placeholder="">
+                        <option value="0" selected>Seleccione</option>
+                        <option value="Automática" >Automática</option>
+                        <option value="Standard" >Standard</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="txtDescripcionVersionVehiculo" class="form-label">Descripción versión</label>
+                    <input type="text" class="form-control" name="txtDescripcionVersionVehiculo"
+                        id="txtDescripcionVersionVehiculo" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label for="cboTipoCoberturaVehiculo" class="form-label">Cobertura</label>
+                    <select class="form-select" name="cboTipoCoberturaVehiculo" id="cboTipoCoberturaVehiculo"
+                        placeholder="">
+                        <option value="0" selected>Seleccione</option>
+                        <option value="Amplia" >Amplia</option>
+                        <option value="Limitada" >Limitada</option>
+                        <option value="Responsabilidad civil" >Responsabilidad civil</option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </section>
-    <script src="./js/App.js" type="module"></script>
+    <script src="./js/App.js"></script>
 </body>
 
 </html>

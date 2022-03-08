@@ -20,7 +20,7 @@ class Seguros{
     //******************** */ CATÁLOGO DE TIPOS DE SEGURO *************************/
     public function cattiposeguro_select_all(){
         $ProcesosBD = new ProcesosBD(self::SERVER,self::USER,self::PWD,self::DB);
-        $consulta = "SELECT * FROM cattiposeguro ORDER BY nombreseguro";
+        $consulta = "SELECT * FROM cattiposeguro";
         return $ProcesosBD->tabla($consulta);        
     }
 

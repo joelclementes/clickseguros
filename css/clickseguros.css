@@ -35,6 +35,10 @@ h1{
     color:#d63c16;
 }
 
+.form__vehiculos{
+  background: #f5f5f5;
+}
+
 input:invalid {
     background: #ffffff;
     background: -moz-linear-gradient(top,  #ffffff 0%, #d3a2a3 100%);
