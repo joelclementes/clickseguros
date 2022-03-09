@@ -1,6 +1,26 @@
+import {GuardaSolicitudVehiculo} from "../modulos/GuardaSolicitudVehiculo.js"
 class App {
     
     constructor(reset = false) {
+        this.url = "http://127.0.0.1:80/clicksegurosbackend/proceso.php/"
+
+        alertify.defaults.transition = "zoom";
+        alertify.defaults.theme.ok = "btn btn-primary";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        alertify.defaults.theme.input = "form-control";
+
+        const ocultasecciones = () => {
+            // OCULTAREMOS TODOS LOS <section> EN index.html
+
+            // Obtenemos el arreglo de todos los section por medio de la clase que tienen en común
+            var elementos = document.getElementsByClassName("form");
+
+            // iteramos para ocultarlos
+            for(let el of elementos){
+                el.setAttribute('style','display:none;')
+            }
+        }
+
         const fechaDeHoy = () => {
             let fechaActual = new Date();
     
@@ -19,16 +39,25 @@ class App {
             const combo = document.querySelector("#cboTipoDeSeguro");
             let aplicacion=null;
             let eleccion=null;
+
+            ocultasecciones();
+
             combo.addEventListener("change", () => {
-                aplicacion = combo.value
-                eleccion=combo.options[combo.selectedIndex].text;
-                console.log(`Elegiste: ${eleccion} Aplicación: ${aplicacion}`);
+                ocultasecciones();
+                const idSection = combo.value
+                document.getElementById(idSection).setAttribute('style','')
+                // eleccion=combo.options[combo.selectedIndex].text;
+            })
+
+            document.getElementById("btnEnviarFormVehiculos").addEventListener("click", () => {
+                console.log(GuardaSolicitudVehiculo(this.url));
             })
         }
     }
 
     fnLlenaComboTipoDeSeguro() {
-        const url = `http://localhost/clickseguros/backend/proceso.php/?proceso=CATTIPOSEGURO_SELECT_ALL`;
+        const PROCESO = "?proceso=CATTIPOSEGURO_SELECT_ALL";
+        const url = this.url+PROCESO;
         let strOpciones;
         $.ajax({
             url: url,
@@ -38,7 +67,7 @@ class App {
                 strOpciones = `<option value="0" selected>Seleccione</option>`;
                 // const datos = response.data;
                 for (let d of datos) {
-                    strOpciones += `<option value="${d.aplicacion}">${d.nombreseguro}</option>`;
+                    strOpciones += `<option value="${d.idSection}">${d.nombreseguro}</option>`;
                 }
                 document.querySelector("#cboTipoDeSeguro").innerHTML = strOpciones;
             }

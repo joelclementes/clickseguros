@@ -1,5 +1,6 @@
 :root {
-    
+  --background: linear-gradient(135deg, #d63c167a 0%, #2f40557a 100%);
+  /* --background: linear-gradient(135deg, #2f7ee67a 0%, #d63c167a 100%); */
   }
 
 *{
@@ -17,9 +18,13 @@ body {
     font-size:15px;
 }
 
+.container{
+  padding: 20px !important; 
+}
+
 .card-body{
-    background-image: url('../images/imagendefondoheader.jpg');
-    border-radius: 20px;
+    background-image: var(--background),url('../images/imagendefondoheader.jpg');
+    border-radius: 10px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
@@ -28,15 +33,18 @@ body {
     height:350px;
 }
 
-h1{
+.titulo{
     font-size:3rem;
-    font-weight:600;
+    letter-spacing: 0.073em;
+    font-weight:800;
     text-align: center;
-    color:#d63c16;
+    color:#ffffff;
+    text-shadow: 2px 2px 3px rgb(0, 0, 0);
+
 }
 
 .form__vehiculos{
-  background: #f5f5f5;
+  background: #f1f1f1;
 }
 
 input:invalid {
@@ -48,16 +56,10 @@ input:invalid {
   }
   
   input:invalid:required {
-    background: #fefcea;
-    background: -moz-linear-gradient(top,  #fefcea 0%, #efebd0 100%);
-    background: -webkit-linear-gradient(top,  #fefcea 0%,#efebd0 100%);
-    background: linear-gradient(to bottom,  #fefcea 0%,#efebd0 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#efebd0',GradientType=0 );
-
     background: #ffffff;
     background: -moz-linear-gradient(top,  #ffffff 0%, #fcffdd 100%);
     background: -webkit-linear-gradient(top,  #ffffff 0%,#fcffdd 100%);
-    background: linear-gradient(to bottom,  #ffffff 0%,#fcffdd 100%);
+    background: linear-gradient(to bottom,  #ffffff 0%,#faffc0 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fcffdd',GradientType=0 );
   }
   
