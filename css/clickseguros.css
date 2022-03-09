@@ -22,7 +22,7 @@ body {
   padding: 20px !important; 
 }
 
-.card-body{
+.cuerpo{
     background-image: var(--background),url('../images/imagendefondoheader.jpg');
     border-radius: 10px;
     background-repeat: no-repeat;
@@ -43,8 +43,38 @@ body {
 
 }
 
+.cardArchivoPdf{
+  padding:10px;
+  border-radius:5px;
+  /* color:#000000; */
+  background: #effff0;
+  /* background: linear-gradient(to left, #283048, #859398) */
+}
+
+.instruccionesPdf{
+  /* color:#000000; */
+  font-size: .8rem;
+}
+
+.formulario__general{
+  border-radius:10px;
+  background: #fafaf1;
+}
+
+.form{
+  border-radius:10px
+}
+
 .form__vehiculos{
   background: #f1f1f1;
+}
+
+.form__gastosmedicos{
+  background: #bacdf1;
+}
+
+.card-asegurado{
+  border-radius: 15px;
 }
 
 input:invalid {

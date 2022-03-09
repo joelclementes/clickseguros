@@ -2,9 +2,9 @@ import {GuardaSolicitudVehiculo} from "../modulos/GuardaSolicitudVehiculo.js"
 class App {
     
     constructor(reset = false) {
-        this.url = "http://localhost/clicksegurosbackend/proceso.php/";
-        // this.url = "http://a2plcpnl0158:2083/clicksegurosbackend/proceso.php/";
-        
+        this.urlGet = "http://localhost/clicksegurosbackend/proceso.php/";
+        this.urlPost = "http://localhost/clicksegurosbackend/procesopost.php/";
+        // this.urlGet = "http://a2plcpnl0158:2083/clicksegurosbackend/proceso.php/";
 
         alertify.defaults.transition = "zoom";
         alertify.defaults.theme.ok = "btn btn-primary";
@@ -23,6 +23,30 @@ class App {
             }
         }
 
+        const limpiaDatos = () => {
+            // Datos generales
+            document.querySelector("#txtFecha").value = fechaDeHoy();
+            document.querySelector("#txtNombreSolicitante").value = "";
+            document.querySelector("#txtApellidosSolicitante").value = "";
+            document.querySelector("#txtPaisSolicitante").value = "";
+            document.querySelector("#txtCodigoPostalSolicitante").value = "";
+            document.querySelector("#txtCelularSolicitante").value = "";
+            document.querySelector("#txtCorreoSolicitante").value = "";
+            document.querySelector("#txtCodigoDeEpisodio").value = "";
+            document.querySelector("#archNombre").value = "";
+            
+            //Datos para seguro de vehículo
+            document.querySelector("#cboTipoPersonaVehiculo").value = '0';
+            document.querySelector("#txtModeloVehiculo").value = "";
+            document.querySelector("#txtMarcaVehiculo").value = "";
+            document.querySelector("#txtVersionVehiculo").value = "";
+            document.querySelector("#cboTransmisionVehiculo").value = '0';
+            document.querySelector("#txtDescripcionVersionVehiculo").value = "";
+            document.querySelector("#cboTipoCoberturaVehiculo").value = '0';
+            document.querySelector("#chkAceptacionVehiculos").checked = false;
+
+        }
+
         const fechaDeHoy = () => {
             let fechaActual = new Date();
     
@@ -33,10 +57,29 @@ class App {
             return año + "-" + mes + "-" + dia;
         }
 
+        const LlenaComboTipoDeSeguro = () => {
+            const PROCESO = "?proceso=CATTIPOSEGURO_SELECT_ALL";
+            const url = this.urlGet+PROCESO;
+            let strOpciones;
+            $.ajax({
+                url: url,
+                dataType:"json",
+                success: function (datos) {
+                    let strOpciones = ``;
+                    strOpciones = `<option value="0" selected>Seleccione</option>`;
+                    for (let d of datos) {
+                        strOpciones += `<option value="${d.idSection}">${d.nombreseguro}</option>`;
+                    }
+                    document.querySelector("#cboTipoDeSeguro").innerHTML = strOpciones;
+                }
+            })
+        }
+
+
 
         if (reset) {
             document.querySelector("#txtFecha").value = fechaDeHoy();
-            new App().fnLlenaComboTipoDeSeguro();
+            LlenaComboTipoDeSeguro();
 
             const combo = document.querySelector("#cboTipoDeSeguro");
             let aplicacion=null;
@@ -48,31 +91,22 @@ class App {
                 ocultasecciones();
                 const idSection = combo.value
                 document.getElementById(idSection).setAttribute('style','')
-                // eleccion=combo.options[combo.selectedIndex].text;
             })
 
             document.getElementById("btnEnviarFormVehiculos").addEventListener("click", () => {
-                console.log(GuardaSolicitudVehiculo(this.url));
+                if (document.getElementById("chkAceptacionVehiculos").checked){
+                    const resultado = GuardaSolicitudVehiculo(this.urlPost);
+                    console.log(`Resultado ${resultado}`);
+                    if (resultado==1){
+                        alertify.alert('Atención', "Se guardó el registro").set('modal', false);
+                        ocultasecciones();
+                        limpiaDatos();
+                    }
+                } else {
+                    alertify.alert('Atención', "Debe aceptar aceptación de aviso de privacidad, uso de datos, términos y condiciones").set('modal', false);
+                }
             })
         }
-    }
-
-    fnLlenaComboTipoDeSeguro() {
-        const PROCESO = "?proceso=CATTIPOSEGURO_SELECT_ALL";
-        const url = this.url+PROCESO;
-        let strOpciones;
-        $.ajax({
-            url: url,
-            dataType:"json",
-            success: function (datos) {
-                let strOpciones = ``;
-                strOpciones = `<option value="0" selected>Seleccione</option>`;
-                for (let d of datos) {
-                    strOpciones += `<option value="${d.idSection}">${d.nombreseguro}</option>`;
-                }
-                document.querySelector("#cboTipoDeSeguro").innerHTML = strOpciones;
-            }
-        })
     }
 
 }

@@ -1,77 +1,152 @@
 export function GuardaSolicitudVehiculo(url){
-    // Datos de solicitud
     const datoscapturados = {
         fecha : document.getElementById("txtFecha").value,
         nombre : document.getElementById("txtNombreSolicitante").value,
         apellidos : document.getElementById("txtApellidosSolicitante").value,
-        pais : document.getElementById("txtPaisSolicitante").value
+        pais : document.getElementById("txtPaisSolicitante").value,
+        codigopostal : document.getElementById("txtCodigoPostalSolicitante").value,
+        celular : document.getElementById("txtCelularSolicitante").value,
+        correo : document.getElementById("txtCorreoSolicitante").value,
+        codigoepisodio : document.getElementById("txtCodigoDeEpisodio").value,
+        tiposeguro : document.getElementById("cboTipoDeSeguro").options[document.getElementById("cboTipoDeSeguro").selectedIndex].text,
+        tipopersona : document.getElementById("cboTipoPersonaVehiculo").value,
+        modelo : document.getElementById("txtModeloVehiculo").value,
+        marca : document.getElementById("txtMarcaVehiculo").value,
+        version : document.getElementById("txtVersionVehiculo").value,
+        transmision : document.getElementById("cboTransmisionVehiculo").value,
+        descripcionversion : document.getElementById("txtDescripcionVersionVehiculo").value,
+        tipodecobertura : document.getElementById("cboTipoCoberturaVehiculo").value
     }
-    const fecha = document.getElementById("txtFecha").value;
-    const nombre = document.getElementById("txtNombreSolicitante").value;
-    const apellidos = document.getElementById("txtApellidosSolicitante").value;
-    const pais = document.getElementById("txtPaisSolicitante").value;
-    const codigopostal = document.getElementById("txtCodigoPostalSolicitante").value;
-    const celular = document.getElementById("txtCelularSolicitante").value;
-    const correo = document.getElementById("txtCorreoSolicitante").value;
-    const codigoepisodio = document.getElementById("txtCodigoDeEpisodio").value;
-    const combo = document.getElementById("cboTipoDeSeguro");
-    const tiposeguro = combo.options[combo.selectedIndex].text;
-
-    // Datos específicos de vehículo
-    const tipopersona = document.getElementById("cboTipoPersonaVehiculo").value;
-    const modelo = document.getElementById("txtModeloVehiculo").value;
-    const marca = document.getElementById("txtMarcaVehiculo").value;
-    const version = document.getElementById("txtVersionVehiculo").value;
-    const transmision = document.getElementById("cboTransmisionVehiculo").value;
-    const descripcionversion = document.getElementById("txtDescripcionVersionVehiculo").value;
-    const tipodecobertura = document.getElementById("cboTipoCoberturaVehiculo").value;
     
     // Validando campos
-    if(nombre==''){
+    if(datoscapturados.nombre==''){
         alertify.alert('Atención', "No ha ingresado nombre").set('modal', false); return '0';
     }
-    if(codigopostal==''){
+    if(datoscapturados.apellidos==''){
+        alertify.alert('Atención', "No ha ingresado apellidos").set('modal', false); return '0';
+    }
+    if(datoscapturados.pais==''){
+        alertify.alert('Atención', "No ha ingresado país de residencia").set('modal', false); return '0';
+    }
+    if(datoscapturados.codigopostal==''){
         alertify.alert('Atención', "No ha ingresado código postal").set('modal', false); return '0';
     }
-    if(celular==''){
+    if(datoscapturados.celular==''){
         alertify.alert('Atención', "No ha ingresado celular").set('modal', false); return '0';
     }
-    if(correo==''){
+    if(datoscapturados.correo==''){
         alertify.alert('Atención', "No ha ingresado correo").set('modal', false); return '0';
     }
-    if(tipopersona=='0'){
+    if(datoscapturados.codigoepisodio==''){
+        alertify.alert('Atención', "No ha ingresado código de episodio").set('modal', false); return '0';
+    }
+    if(datoscapturados.tipopersona=='0'){
         alertify.alert('Atención', "No ha seleccionado tipo de persona").set('modal', false); return '0';
     }
-    if(modelo==''){
+    if(datoscapturados.modelo==''){
         alertify.alert('Atención', "No ha ingresado modelo").set('modal', false); return '0';
     }
-    if(marca==''){
+    if(datoscapturados.marca==''){
         alertify.alert('Atención', "No ha ingresado marca").set('modal', false); return '0';
     }
-    if(transmision=='0'){
+    if(datoscapturados.version==''){
+        alertify.alert('Atención', "No ha ingresado versión").set('modal', false); return '0';
+    }
+    if(datoscapturados.transmision=='0'){
         alertify.alert('Atención', "No ha seleccionado transmisión").set('modal', false); return '0';
     }
-    if(tipodecobertura=='0'){
+    if(datoscapturados.tipodecobertura=='0'){
         alertify.alert('Atención', "No ha seleccionado tipo de cobertura").set('modal', false); return '0';
     }
 
+    let inputFile = document.getElementById("archNombre");
+    let par_archivo = inputFile.files[0];
+    let nombreArchivo
+    let tipoArchivo;
 
-    const PROCESO = `?proceso=CATTIPOSEGURO_SELECT_ALL&fecha=${fecha}&nombre=${nombre}&apellidos=${apellidos}&pais=${pais}&codigopostal=${codigopostal}&celular=${celular}&correo=${correo}`;
+    if (par_archivo != undefined) {
+        nombreArchivo = par_archivo.name;
+        tipoArchivo = par_archivo.type;
+      }
 
-    // const codigoepisodio = document.getElementById("txtCodigoDeEpisodio").value;
-    // const combo = document.getElementById("cboTipoDeSeguro");
-    // const tiposeguro = combo.options[combo.selectedIndex].text;
+      if (
+        nombreArchivo != undefined &&
+        (nombreArchivo.includes("á") ||
+          nombreArchivo.includes("à") ||
+          nombreArchivo.includes("ä") ||
+          nombreArchivo.includes("â") ||
+          nombreArchivo.includes("é") ||
+          nombreArchivo.includes("è") ||
+          nombreArchivo.includes("ë") ||
+          nombreArchivo.includes("ê") ||
+          nombreArchivo.includes("í") ||
+          nombreArchivo.includes("ì") ||
+          nombreArchivo.includes("ï") ||
+          nombreArchivo.includes("î") ||
+          nombreArchivo.includes("ó") ||
+          nombreArchivo.includes("ò") ||
+          nombreArchivo.includes("ö") ||
+          nombreArchivo.includes("ô") ||
+          nombreArchivo.includes("ú") ||
+          nombreArchivo.includes("ù") ||
+          nombreArchivo.includes("ü") ||
+          nombreArchivo.includes("û") ||
+          nombreArchivo.includes("ñ") ||
+          nombreArchivo.includes("~") ||
+          nombreArchivo.includes("¿") ||
+          nombreArchivo.includes(" ") ||
+          nombreArchivo.includes("'"))
+      ) {
+        alertify
+          .alert(
+            "Atención",
+            "Nombre de archivo inválido</br>(No debe tener espacios, «ñ», ni caracteres especiales)."
+          )
+          .set("modal", false);
+        return '0';
+      }
 
-    // // Datos específicos de vehículo
-    // const tipopersona = document.getElementById("cboTipoPersonaVehiculo").value;
-    // const modelo = document.getElementById("txtModeloVehiculo").value;
-    // const marca = document.getElementById("txtMarcaVehiculo").value;
-    // const version = document.getElementById("txtVersionVehiculo").value;
-    // const transmision = document.getElementById("cboTransmisionVehiculo").value;
-    // const descripcionversion = document.getElementById("txtDescripcionVersionVehiculo").value;
-    // const tipodecobertura = document.getElementById("cboTipoCoberturaVehiculo").value;
+    var parametrosAjax = new FormData();
+    if (nombreArchivo == undefined) {
+      parametrosAjax.append("proceso", "SOLICITUDVEHICULO_INSERTSINARCHIVOS");
+    } else {
+      parametrosAjax.append("proceso", "SOLICITUDVEHICULO_INSERT");
+    }
+    parametrosAjax.append("fecha", datoscapturados.fecha);
+    parametrosAjax.append("nombre", datoscapturados.nombre);
+    parametrosAjax.append("apellidos", datoscapturados.apellidos);
+    parametrosAjax.append("pais", datoscapturados.pais);
+    parametrosAjax.append("codigopostal", datoscapturados.codigopostal);
+    parametrosAjax.append("celular", datoscapturados.celular);
+    parametrosAjax.append("correo", datoscapturados.correo);
+    parametrosAjax.append("codigoepisodio", datoscapturados.codigoepisodio);
+    parametrosAjax.append("tiposeguro", datoscapturados.tiposeguro);
+    parametrosAjax.append("tipopersona", datoscapturados.tipopersona);
+    parametrosAjax.append("modelo", datoscapturados.modelo);
+    parametrosAjax.append("marca", datoscapturados.marca);
+    parametrosAjax.append("version", datoscapturados.version);
+    parametrosAjax.append("transmision", datoscapturados.transmision);
+    parametrosAjax.append("descripcionversion", datoscapturados.descripcionversion);
+    parametrosAjax.append("tipodecobertura", datoscapturados.tipodecobertura);
+    parametrosAjax.append("archivo", par_archivo);
+    var res=0;
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: parametrosAjax,
+        contentType: false,
+        cache: false,
+        processData: false,
+        async: false,
+        success: function (resultado) { 
+            res = resultado;
+            if (resultado == 0) {
+                alertify.alert("Ocurrió un error", resultado).set("modal", false);
+            } else {
+                
+            }
+        },
+      })
+      return res;
 
-    const urlApi = url+PROCESO;
-
-    return urlApi;
 }
