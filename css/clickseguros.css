@@ -58,7 +58,7 @@ body {
 
 .formulario__general{
   border-radius:10px;
-  background: #fafaf1;
+  background: #f1f5fa;
 }
 
 .form{
@@ -73,8 +73,13 @@ body {
   background: #bacdf1;
 }
 
+.form__archivoadjunto{
+  background: #f1f1f1;
+}
 .card-asegurado{
-  border-radius: 15px;
+  background-color: #feffeb;
+  border-radius: 10px;
+  box-shadow: 2px 3px 5px -3px rgba(0,0,0,0.75);
 }
 
 input:invalid {

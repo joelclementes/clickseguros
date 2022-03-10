@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-03-2022 a las 22:51:17
+-- Tiempo de generación: 10-03-2022 a las 22:18:33
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 7.3.29
 
@@ -86,7 +86,7 @@ CREATE TABLE `solicitud` (
 --
 
 INSERT INTO `solicitud` (`id`, `fecha`, `nombre`, `apellidos`, `pais`, `codigopostal`, `celular`, `correo`, `codigoepisodio`, `tiposeguro`, `archivo`) VALUES
-(1, '2022-03-09', 'Joel', 'Clemente Serrano', 'México', '91640', '2284959759', 'joelcs73@gmail.com', '123456789', 'Automóvil', '2284959759_CESJ730124HVZLRL07.pdf');
+(1, '2022-03-10', 'Joel', 'Clemente Serrano', 'México', '91640', '2284959759', 'joelcs73@gmail.com', '123456', 'Automóvil', '2284959759_CESJ730124HVZLRL07.pdf');
 
 -- --------------------------------------------------------
 

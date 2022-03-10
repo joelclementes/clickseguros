@@ -94,19 +94,6 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12 mb-3 cardArchivoPdf">
-                <p class="instruccionesPdf">Se adjuntará la siguiente documentación en un solo archivo pdf:</br>Ine,
-                    comprobante de domicilio, en dado caso que sea de autos, tarjeta de circulacion</p>
-                <label for="archNombre">
-                    <img
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAfNJREFUWEft2EFO20AUBuD/PQu6bNYEqekeN5E5QHODhhuEE9ScgOQEhBuYE5AbNFzADfUB2BB1C8ugzntonLgEEdexGVcgZaRsPDN+37wZezwhvLFCb8yD9wO66XQau2zOAPQANEpmMmrGyXHJPmnz3AzNDv0xFN+q3HTZpxIqHxT4+gpM1rU0yilIoecE6gJorwymFMopCKDhg/Bol82kKso5qBn/GiwfiEqoWkB2uqqiagNVRdUKqoKqHZSHasbJ2thOQaSYKKldzC+KghoEhFnFfwGVeZFuQUXZ2mZom6GiDBTVO1hDNLQbpw30u9NpCZuxAnf7cWI/N9K9a4dNj4GRANPsuq2bBV8GgJ6uIp2AhGXCQpfCepR+bgoNbOBZ4Kt9Kc7VO/rA0hdoz16/DQ5GrNRWQgtIf3+LE5CKGYN5BJGQPW6JIsxAi0g0ZOHIsIkWIL9PIAvpA/rJOchOWTpdMG0wIgWuV0EEOpkLRztsxk8gC6F+LRlaTtmPbKQKXK2Arh/E6z6fMn9CwNd1C9zJlOWBnnb0P98BCrPM3Qa1gooe5HL1DjJULmBR6y3oXxki4H4vTtYez+s8SueaSHGx9zOxr4IXJReUHmM8E5Giq8DHojWxab3FzNULP0+nd6VAmwZw3e79/D/keuSb3u8RfZdCNHHZH20AAAAASUVORK5CYII=" />
-                </label>
-                <input id="archNombre" type="file" accept="application/pdf" />
-                <div id="archivoSeleccionado"></div>
-            </div>
-        </div>
-        </div>
     </section></br>
 
     <!-- SECCIÓN VEHÍCULOS -->
@@ -166,18 +153,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="mb-3">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="chkAceptacionVehiculos">
-                    <label class="form-check-label" for="chkAceptacionVehiculos">
-                        Aceptación de aviso de privacidad, uso de datos, términos y condiciones
-                    </label>
-                </div>
-                <button type="button" class="btn btn-success" id="btnEnviarFormVehiculos">Enviar</button>
 
-            </div>
-        </div></br>
     </section>
 
     <!-- SECCIÓN GASTOS MÉDICOS -->
@@ -185,94 +161,77 @@
         <div class="row">
             <h4>Seguro de gastos médicos</h4>
             <div class="col-sm-12 col-md-6">
-                <div class="mb-3">
-                    <label for="txtNombreContratanteGastosMedicos" class="form-label">Nombre completo del
-                        contratante</label>
-                    <input type="text" class="form-control" name="txtNombreContratanteGastosMedicos"
-                        id="txtNombreContratanteGastosMedicos" placeholder="" required>
-                </div>
-                <div class="mb-3">
-                    <label for="cboGeneroGastosMedicos" class="form-label">Género</label>
-                    <select class="form-select" name="cboGeneroGastosMedicos" id="cboTransmisionVehiculo"
-                        placeholder="">
-                        <option value="0" selected>Seleccione</option>
-                        <option value="AUTOMATICA">MASCULINO</option>
-                        <option value="STANDARD">FEMENINO</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="txtFechaNacimientoGastosMedicos" class="form-label">Fecha de nacimiento</label>
-                    <input type="date" class="form-control" name="txtFechaNacimientoGastosMedicos"
-                        id="txtFechaNacimientoGastosMedicos" placeholder="" required>
-                </div>
-                <div class="mb-3">
-                    <label for="txtOcupacionGastosMedicos" class="form-label">Ocupación</label>
-                    <input type="text" class="form-control" name="txtOcupacionGastosMedicos"
-                        id="txtOcupacionGastosMedicos" placeholder="" required>
-                </div>
-                <div class="form-check form-switch">
-                    <label class="form-check-label" for="chkPracticaDeportesGastosMedicos">Practica deportes
-                        peligrosos</label>
-                    <input class="form-check-input" type="checkbox" role="switch" id="chkPracticaDeportesGastosMedicos">
-                </div>
-                <button type="button" class="btn btn-success" id="btnAgregaAseguradoGastosMedicos">Agregar</button>
+                <form action="" id="formularioAseguradoGastosMedicos">
+                    <div class="mb-3">
+                        <label for="txtNombreContratanteGastosMedicos" class="form-label">Nombre completo del
+                            contratante</label>
+                        <input type="text" class="form-control" name="txtNombreContratanteGastosMedicos"
+                            id="txtNombreContratanteGastosMedicos" placeholder="" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cboGeneroGastosMedicos" class="form-label">Género</label>
+                        <select class="form-select" name="cboGeneroGastosMedicos" id="cboGeneroGastosMedicos"
+                            placeholder="">
+                            <option value="0" selected>Seleccione</option>
+                            <option value="MASCULINO">MASCULINO</option>
+                            <option value="FEMENINO">FEMENINO</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtFechaNacimientoGastosMedicos" class="form-label">Fecha de nacimiento</label>
+                        <input type="date" class="form-control" name="txtFechaNacimientoGastosMedicos"
+                            id="txtFechaNacimientoGastosMedicos" placeholder="" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtOcupacionGastosMedicos" class="form-label">Ocupación</label>
+                        <input type="text" class="form-control" name="txtOcupacionGastosMedicos"
+                            id="txtOcupacionGastosMedicos" placeholder="" required>
+                    </div>
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="chkPracticaDeportesGastosMedicos">Practica deportes
+                            peligrosos</label>
+                        <input class="form-check-input" type="checkbox" role="switch"
+                            id="chkPracticaDeportesGastosMedicos">
+                    </div>
+                    <button type="button" class="btn btn-success" id="btnAgregaAseguradoGastosMedicos">Agregar</button>
+                </form>
             </div>
 
-            <div class="col-sm-12 col-md-6 d-flex justify-content-between align-content-around align-items-start flex-wrap " id="tarjetasGastosMedicos">
-                <div class="card flex-fill" style="width: 18rem;">
-                    <div class="card-body card-asegurado">
-                        <h5 class="card-title">Joel Clemente Serrano</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">MASCULINO</h6>
-                        <p class="card-text">
-                            Fecha de nacimiento: <b>24/01/1973</b></br>
-                            Ocupación: <b>Analista de sistemas</b>
-                        </p>
-                        <a href="#" class="card-link">Eliminar</a>
-                        <!-- <a href="#" class="card-link">Another link</a> -->
-                    </div>
-                </div>
-
-                <div class="card flex-fill" style="width: 18rem;">
-                    <div class="card-body card-asegurado">
-                        <h5 class="card-title">Joel Clemente Serrano</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">MASCULINO</h6>
-                        <p class="card-text">
-                            Fecha de nacimiento: <b>24/01/1973</b></br>
-                            Ocupación: <b>Analista de sistemas</b>
-                        </p>
-                        <a href="#" class="card-link">Eliminar</a>
-                        <!-- <a href="#" class="card-link">Another link</a> -->
-                    </div>
-                </div>
-
-                <div class="card flex-fill" style="width: 18rem;">
-                    <div class="card-body card-asegurado">
-                        <h5 class="card-title">Joel Clemente Serrano</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">MASCULINO</h6>
-                        <p class="card-text">
-                            Fecha de nacimiento: <b>24/01/1973</b></br>
-                            Ocupación: <b>Analista de sistemas</b>
-                        </p>
-                        <a href="#" class="card-link">Eliminar</a>
-                        <!-- <a href="#" class="card-link">Another link</a> -->
-                    </div>
-                </div>
-                <div class="card flex-fill" style="width: 18rem;">
-                    <div class="card-body card-asegurado">
-                        <h5 class="card-title">Joel Clemente Serrano</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">MASCULINO</h6>
-                        <p class="card-text">
-                            Fecha de nacimiento: <b>24/01/1973</b></br>
-                            Ocupación: <b>Analista de sistemas</b>
-                        </p>
-                        <a href="#" class="card-link">Eliminar</a>
-                    </div>
-                </div>
-
+            <div class="col-sm-12 col-md-6 d-flex justify-content-between align-content-around align-items-start flex-wrap" id="tarjetasGastosMedicos">
 
             </div>
         </div>
     </section></br>
+
+    <section class="container form" id="frmAdjuntararchivo">
+        <div class="row">
+            <div class="col-sm-12 mb-3 cardArchivoPdf">
+                <p class="instruccionesPdf">Se adjuntará la siguiente documentación en un solo archivo pdf:</br>Ine,
+                    comprobante de domicilio, en dado caso que sea de autos, tarjeta de circulacion</p>
+                <label for="archNombre">
+                    <img
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAfNJREFUWEft2EFO20AUBuD/PQu6bNYEqekeN5E5QHODhhuEE9ScgOQEhBuYE5AbNFzADfUB2BB1C8ugzntonLgEEdexGVcgZaRsPDN+37wZezwhvLFCb8yD9wO66XQau2zOAPQANEpmMmrGyXHJPmnz3AzNDv0xFN+q3HTZpxIqHxT4+gpM1rU0yilIoecE6gJorwymFMopCKDhg/Bol82kKso5qBn/GiwfiEqoWkB2uqqiagNVRdUKqoKqHZSHasbJ2thOQaSYKKldzC+KghoEhFnFfwGVeZFuQUXZ2mZom6GiDBTVO1hDNLQbpw30u9NpCZuxAnf7cWI/N9K9a4dNj4GRANPsuq2bBV8GgJ6uIp2AhGXCQpfCepR+bgoNbOBZ4Kt9Kc7VO/rA0hdoz16/DQ5GrNRWQgtIf3+LE5CKGYN5BJGQPW6JIsxAi0g0ZOHIsIkWIL9PIAvpA/rJOchOWTpdMG0wIgWuV0EEOpkLRztsxk8gC6F+LRlaTtmPbKQKXK2Arh/E6z6fMn9CwNd1C9zJlOWBnnb0P98BCrPM3Qa1gooe5HL1DjJULmBR6y3oXxki4H4vTtYez+s8SueaSHGx9zOxr4IXJReUHmM8E5Giq8DHojWxab3FzNULP0+nd6VAmwZw3e79/D/keuSb3u8RfZdCNHHZH20AAAAASUVORK5CYII=" />
+                </label>
+                <input id="archNombre" type="file" accept="application/pdf" />
+                <div id="archivoSeleccionado"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container form" id="frmAceptacion">
+        <div class="row">
+            <div class="mb-3">
+                <div class="form-check">
+                    <input class="form-check-input chkAceptacion" type="checkbox" value="" id="chkAceptacion">
+                    <label class="form-check-label" for="chkAceptacion">
+                        Aceptación de aviso de privacidad, uso de datos, términos y condiciones
+                    </label>
+                </div>
+                <button type="button" class="btn btn-success" id="btnEnviarFormVehiculos">Enviar</button>
+
+            </div>
+        </div>
+    </section>
 
     <footer>
 
