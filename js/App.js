@@ -1,4 +1,5 @@
-import { GuardaSolicitudVehiculo } from "../modulos/GuardaSolicitudVehiculo.js"
+import { GuardaSolicitudVehiculo } from "../modulos/GuardaSolicitudVehiculo.js";
+import { GuardaSolicitudGastosMedicos } from "../modulos/GuardaSolicitudGastosMedicos.js" ;
 class App {
 
     constructor(reset = false) {
@@ -6,17 +7,15 @@ class App {
         let arrayAseguradosGastosMedicos = [];
         let tarjetasAsegurados = document.getElementById("tarjetasGastosMedicos");
 
-        this.urlGet = "http://localhost/clicksegurosbackend/proceso.php/";
-        this.urlPost = "http://localhost/clicksegurosbackend/procesopost.php/";
-        // this.urlGet = "http://a2plcpnl0158:2083/clicksegurosbackend/proceso.php/";
-
+        const urlGet="http://localhost/clicksegurosbackend/proceso.php/";
+        const urlPost = "http://localhost/clicksegurosbackend/procesopost.php/";
 
         alertify.defaults.transition = "zoom";
         alertify.defaults.theme.ok = "btn btn-primary";
         alertify.defaults.theme.cancel = "btn btn-danger";
         alertify.defaults.theme.input = "form-control";
 
-        const ocultasecciones = () => {
+        function ocultasecciones(){
             // OCULTAREMOS TODOS LOS <section> EN index.html
 
             // Obtenemos el arreglo de todos los section por medio de la clase que tienen en común
@@ -28,7 +27,7 @@ class App {
             }
         }
 
-        const limpiaDatos = () => {
+        function limpiaDatos(){
             // Datos generales
             document.querySelector("#cboTipoDeSeguro").value = '0';
             document.querySelector("#txtFecha").value = fechaDeHoy();
@@ -49,11 +48,11 @@ class App {
             document.querySelector("#cboTransmisionVehiculo").value = '0';
             document.querySelector("#txtDescripcionVersionVehiculo").value = "";
             document.querySelector("#cboTipoCoberturaVehiculo").value = '0';
-            document.querySelector("#chkAceptacionVehiculos").checked = false;
+            document.querySelector("#chkAceptacion").checked = false;
 
         }
 
-        const fechaDeHoy = () => {
+        function fechaDeHoy(){
             let fechaActual = new Date();
 
             let mes = (fechaActual.getMonth() + 1) < 10 ? `0${fechaActual.getMonth() + 1}` : fechaActual.getMonth() + 1;
@@ -63,9 +62,9 @@ class App {
             return año + "-" + mes + "-" + dia;
         }
 
-        const LlenaComboTipoDeSeguro = () => {
+        function LlenaComboTipoDeSeguro(){
             const PROCESO = "?proceso=CATTIPOSEGURO_SELECT_ALL";
-            const url = this.urlGet + PROCESO;
+            const url = urlGet + PROCESO;
             let strOpciones;
             $.ajax({
                 url: url,
@@ -81,7 +80,10 @@ class App {
             })
         }
 
-        const CrearItemAsegurado = (nombre, genero, fechanacimiento, ocupacion, practicadeportespeligrosos) => {
+        function CrearItemAsegurado(nombre, genero, fechanacimiento, ocupacion, practicadeportespeligrosos){
+            if(nombre=="" || genero =='0' || fechanacimiento=='' || ocupacion=='' ){
+                alertify.alert('Atención', "Datos incompletos").set('modal', false);return false;
+            }
             // Creamos el item
             let item = {
                 nombre: nombre,
@@ -99,15 +101,18 @@ class App {
 
             // Pintamos en el DOM los asegurados
             pintaAsegurados();
+
+            document.getElementById("txtNombreContratanteGastosMedicos").focus();
+            return true;
         }
 
-        const borrarAsegurado = (indice) =>{
+        function borrarAsegurado(indice){
             arrayAseguradosGastosMedicos.splice(indice,1);
             sessionStorage.setItem('asegurados', JSON.stringify(arrayAseguradosGastosMedicos));
             pintaAsegurados();
         }
 
-        const pintaAsegurados = () => {
+        function pintaAsegurados(){
             //  Limpiamos el contenido de los asegurados
             tarjetasAsegurados.innerHTML = ``;
 
@@ -120,36 +125,45 @@ class App {
             } else {
                 // Iteramos el json para construir las tarjetas
                 arrayAseguradosGastosMedicos.forEach((asegurado, index) => {
+                    const nombreClaseBoton = ".btnAsegurado"+index;
+                    const classButton ="btnAsegurado"+index;
                     tarjetasAsegurados.innerHTML += `
                     <div class="card flex-fill card-asegurado" style="width: 18rem;" id="asegurado${index}">
                     <div class="card-body ">
                         <h5 class="card-title">${asegurado.nombre}</h5>
-                        <!--<h6 class="card-subtitle mb-2 text-muted">${asegurado.genero}</h6>-->
                         <p class="card-text">
                             Género: <b>${asegurado.genero}</b></br>
                             Fecha de nacimiento: <b>${asegurado.fechanacimiento}</b></br>
                             Ocupación: <b>${asegurado.ocupacion}</b></br>
                             Practica deportes peligrosos: <b>${asegurado.practicadeportespeligrosos}</b>
                         </p>
-                        <a class="btn btn-outline-danger" onclick="borrarAsegurado(${index})">Eliminar</a>
+                        <button class="btn btn-outline-danger ${classButton}">Eliminar</button>
                     </div>
                 </div>
                     `;
+
+                document.querySelector(nombreClaseBoton).addEventListener("click",()=>{
+                    borrarAsegurado(index,false);
+                    });
                 })
             }
         }
 
         if (reset) {
+            //Establecemos la fecha actual
             document.querySelector("#txtFecha").value = fechaDeHoy();
+
+            //Llenamos el combo de tipos de seguro
             LlenaComboTipoDeSeguro();
 
-            const combo = document.querySelector("#cboTipoDeSeguro");
             let aplicacion = null;
             let eleccion = null;
-
+            
+            // Ocultamos todas las secciones HTML de los diferentes tipos de seguro
             ocultasecciones();
-
-            // Visualizar las secciones según el tipo de seguro seleccionado
+            
+            // Visualizar las secciones del HTML según el tipo de seguro seleccionado
+            const combo = document.querySelector("#cboTipoDeSeguro");
             combo.addEventListener("change", () => {
                 ocultasecciones();
                 const idSection = combo.value
@@ -158,34 +172,46 @@ class App {
                 document.getElementById("frmAceptacion").setAttribute('style', '');
             })
 
-
             // Agregar asegurado en Seguro de Gastos médicos
             document.getElementById("btnAgregaAseguradoGastosMedicos").addEventListener("click", (e) => {
                 e.preventDefault();
                 let formulario = document.querySelector("#formularioAseguradoGastosMedicos");
-                CrearItemAsegurado(
+                if(CrearItemAsegurado(
                     document.getElementById("txtNombreContratanteGastosMedicos").value,
                     document.getElementById("cboGeneroGastosMedicos").value,
                     document.getElementById("txtFechaNacimientoGastosMedicos").value,
                     document.getElementById("txtOcupacionGastosMedicos").value,
                     document.getElementById("chkPracticaDeportesGastosMedicos").checked == true ? "Si" : "No",
-                );
-                formulario.reset();
+                )){
+                    formulario.reset();
+                    document.getElementById("txtNombreContratanteGastosMedicos").focus()
+                }
             })
 
 
             // Guardar registro
-            document.getElementById("btnEnviarFormVehiculos").addEventListener("click", () => {
+            document.getElementById("btnEnviarForm").addEventListener("click", () => {
+                // Si ha checado la aceptación de aviso de privacidad y etc., se intentará guardar
                 if (document.querySelector(".chkAceptacion").checked) {
+                    /**
+                     Obtenemos el value del tipo de seguro, el cual tiene:
+                     Vehículo, GastosMedicos, VidaAhorro,Otro
+                     Estos los toma del campo idSection en la tabla cattiposeguro de la BD
+                     Y según la opción invocaremos la función que guardará en la BD
+                     */
                     const opcion = document.getElementById("cboTipoDeSeguro").value;
                     let resultado = 0;
                     switch (opcion) {
                         case 'Vehículo':
-                            resultado = GuardaSolicitudVehiculo(this.urlPost);
+                            /**
+                             En esta función usaremos una url que utilizará el método POST,
+                             porque enviaremos datos de un archivo pdf que se subirá al servidor.
+                             * */
+                            resultado = GuardaSolicitudVehiculo(urlPost);
                             break;
+                        case 'GastosMedicos':
+                            resultado = GuardaSolicitudGastosMedicos(urlPost);
                     }
-                    // const resultado = GuardaSolicitudVehiculo(this.urlPost);
-                    console.log(`Resultado ${resultado}`);
                     if (resultado == 1) {
                         alertify.alert('Atención', "Se guardó el registro").set('modal', false);
                         ocultasecciones();
@@ -197,10 +223,5 @@ class App {
             })
         }
     }
-    // borrarAsegurado(indice){
-    //     arrayAseguradosGastosMedicos.splice(indice);
-    //     pintaAsegurados();
-    // }
-
 }
 window.onload = () => new App(true);

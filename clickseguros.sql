@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-03-2022 a las 22:18:33
+-- Tiempo de generación: 11-03-2022 a las 22:47:24
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 7.3.29
 
@@ -81,13 +81,6 @@ CREATE TABLE `solicitud` (
   `archivo` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `solicitud`
---
-
-INSERT INTO `solicitud` (`id`, `fecha`, `nombre`, `apellidos`, `pais`, `codigopostal`, `celular`, `correo`, `codigoepisodio`, `tiposeguro`, `archivo`) VALUES
-(1, '2022-03-10', 'Joel', 'Clemente Serrano', 'México', '91640', '2284959759', 'joelcs73@gmail.com', '123456', 'Automóvil', '2284959759_CESJ730124HVZLRL07.pdf');
-
 -- --------------------------------------------------------
 
 --
@@ -105,13 +98,6 @@ CREATE TABLE `solicitudsegurovehiculo` (
   `descripcionversion` varchar(200) NOT NULL,
   `tipodecobertura` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `solicitudsegurovehiculo`
---
-
-INSERT INTO `solicitudsegurovehiculo` (`id`, `idSolicitud`, `tipopersona`, `modelo`, `marca`, `version`, `transmision`, `descripcionversion`, `tipodecobertura`) VALUES
-(1, 1, 'PERSONA FISICA', '2017', 'Toyota', 'Yaris', 'AUTOMATICA', '', 'AMPLIA');
 
 --
 -- Índices para tablas volcadas
@@ -161,13 +147,13 @@ ALTER TABLE `documentos`
 -- AUTO_INCREMENT de la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `solicitudsegurovehiculo`
 --
 ALTER TABLE `solicitudsegurovehiculo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
