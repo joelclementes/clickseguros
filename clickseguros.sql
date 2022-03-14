@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-03-2022 a las 22:47:24
--- Versión del servidor: 10.4.20-MariaDB
--- Versión de PHP: 7.3.29
+-- Tiempo de generación: 14-03-2022 a las 04:24:31
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -84,6 +84,22 @@ CREATE TABLE `solicitud` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `solicitudsegurogastosmedicosasegurados`
+--
+
+CREATE TABLE `solicitudsegurogastosmedicosasegurados` (
+  `id` int(11) NOT NULL,
+  `idSolicitud` int(11) NOT NULL,
+  `nombreContratante` varchar(250) NOT NULL,
+  `genero` varchar(10) NOT NULL,
+  `fechaDeNacimiento` date NOT NULL,
+  `ocupacion` varchar(200) NOT NULL,
+  `practicaDeportesPeligrosos` varchar(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `solicitudsegurovehiculo`
 --
 
@@ -122,6 +138,12 @@ ALTER TABLE `solicitud`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `solicitudsegurogastosmedicosasegurados`
+--
+ALTER TABLE `solicitudsegurogastosmedicosasegurados`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `solicitudsegurovehiculo`
 --
 ALTER TABLE `solicitudsegurovehiculo`
@@ -147,6 +169,12 @@ ALTER TABLE `documentos`
 -- AUTO_INCREMENT de la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `solicitudsegurogastosmedicosasegurados`
+--
+ALTER TABLE `solicitudsegurogastosmedicosasegurados`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
