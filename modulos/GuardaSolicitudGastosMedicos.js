@@ -9,7 +9,8 @@ export function GuardaSolicitudGastosMedicos(url) {
     codigopostal: document.getElementById("txtCodigoPostalSolicitante").value,
     celular: document.getElementById("txtCelularSolicitante").value,
     correo: document.getElementById("txtCorreoSolicitante").value,
-    codigoepisodio: document.getElementById("txtCodigoDeEpisodio").value
+    codigoepisodio: document.getElementById("txtCodigoDeEpisodio").value,
+    tiposeguro: document.getElementById("cboTipoDeSeguro").options[document.getElementById("cboTipoDeSeguro").selectedIndex].text,
   }
 
   // Validando campos
@@ -94,7 +95,8 @@ export function GuardaSolicitudGastosMedicos(url) {
   parametrosAjax.append("celular", datoscapturados.celular);
   parametrosAjax.append("correo", datoscapturados.correo);
   parametrosAjax.append("codigoepisodio", datoscapturados.codigoepisodio);
-  parametrosAjax.append("asegurados", arrayAseguradosGastosMedicos);
+  parametrosAjax.append("tiposeguro", datoscapturados.tiposeguro);
+  parametrosAjax.append("asegurados", JSON.stringify(arrayAseguradosGastosMedicos));
   parametrosAjax.append("archivo", par_archivo);
   console.log(parametrosAjax);
   var res = 0;

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-03-2022 a las 04:24:31
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.0.13
+-- Tiempo de generación: 14-03-2022 a las 22:05:40
+-- Versión del servidor: 10.4.20-MariaDB
+-- Versión de PHP: 7.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -52,18 +52,6 @@ INSERT INTO `cattiposeguro` (`id`, `nombreseguro`, `idSection`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `documentos`
---
-
-CREATE TABLE `documentos` (
-  `id` int(11) NOT NULL,
-  `idSolicitud` int(11) NOT NULL,
-  `descripcion` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `solicitud`
 --
 
@@ -84,17 +72,18 @@ CREATE TABLE `solicitud` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `solicitudsegurogastosmedicosasegurados`
+-- Estructura de tabla para la tabla `solicitudsegurogastosmedicos`
 --
 
-CREATE TABLE `solicitudsegurogastosmedicosasegurados` (
+CREATE TABLE `solicitudsegurogastosmedicos` (
   `id` int(11) NOT NULL,
   `idSolicitud` int(11) NOT NULL,
-  `nombreContratante` varchar(250) NOT NULL,
+  `nombre` varchar(200) NOT NULL,
   `genero` varchar(10) NOT NULL,
-  `fechaDeNacimiento` date NOT NULL,
+  `fechanacimiento` date NOT NULL,
   `ocupacion` varchar(200) NOT NULL,
-  `practicaDeportesPeligrosos` varchar(2) NOT NULL
+  `practicadeportespeligrosos` varchar(2) NOT NULL,
+  `parentezco` varchar(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -126,21 +115,15 @@ ALTER TABLE `cattiposeguro`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `documentos`
---
-ALTER TABLE `documentos`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `solicitudsegurogastosmedicosasegurados`
+-- Indices de la tabla `solicitudsegurogastosmedicos`
 --
-ALTER TABLE `solicitudsegurogastosmedicosasegurados`
+ALTER TABLE `solicitudsegurogastosmedicos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -160,21 +143,15 @@ ALTER TABLE `cattiposeguro`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `documentos`
---
-ALTER TABLE `documentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `solicitudsegurogastosmedicosasegurados`
+-- AUTO_INCREMENT de la tabla `solicitudsegurogastosmedicos`
 --
-ALTER TABLE `solicitudsegurogastosmedicosasegurados`
+ALTER TABLE `solicitudsegurogastosmedicos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

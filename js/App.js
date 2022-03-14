@@ -80,17 +80,24 @@ class App {
             })
         }
 
-        function CrearItemAsegurado(nombre, genero, fechanacimiento, ocupacion, practicadeportespeligrosos){
+        function CrearItemAsegurado(nombre, genero, fechanacimiento, ocupacion, practicadeportespeligrosos,parentezco){
             if(nombre=="" || genero =='0' || fechanacimiento=='' || ocupacion=='' ){
                 alertify.alert('Atención', "Datos incompletos").set('modal', false);return false;
             }
+            if (parentezco=='Hijo' && genero=='MASCULINO'){parentezco='Hijo'}
+            if (parentezco=='Hijo' && genero=='FEMENINO'){parentezco='Hija'}
+            if (parentezco=='Hermano' && genero=='MASCULINO'){parentezco='Hermano'}
+            if (parentezco=='Hermano' && genero=='FEMENINO'){parentezco='Hermana'}
+            if (parentezco=='Padre' && genero=='MASCULINO'){parentezco='Padre'}
+            if (parentezco=='Padre' && genero=='FEMENINO'){parentezco='Madre'}
             // Creamos el item
             let item = {
                 nombre: nombre,
                 genero: genero,
                 fechanacimiento: fechanacimiento,
                 ocupacion: ocupacion,
-                practicadeportespeligrosos: practicadeportespeligrosos
+                practicadeportespeligrosos: practicadeportespeligrosos,
+                parentezco: parentezco
             }
 
             // Agregamos el item al arreglo
@@ -101,12 +108,18 @@ class App {
 
             // Pintamos en el DOM los asegurados
             pintaAsegurados();
-
+            if(parentezco=='Titular' || parentezco=='Cónyuge'){
+                document.getElementById(parentezco).setAttribute('disabled','disabled');
+            }
             document.getElementById("txtNombreContratanteGastosMedicos").focus();
             return true;
         }
 
         function borrarAsegurado(indice){
+            const parent = arrayAseguradosGastosMedicos[indice].parentezco;
+            if (parent=='Titular' || parent=='Conyuge'){
+                document.querySelector(`#${parent}`).removeAttribute('disabled');
+            }
             arrayAseguradosGastosMedicos.splice(indice,1);
             sessionStorage.setItem('asegurados', JSON.stringify(arrayAseguradosGastosMedicos));
             pintaAsegurados();
@@ -135,7 +148,8 @@ class App {
                             Género: <b>${asegurado.genero}</b></br>
                             Fecha de nacimiento: <b>${asegurado.fechanacimiento}</b></br>
                             Ocupación: <b>${asegurado.ocupacion}</b></br>
-                            Practica deportes peligrosos: <b>${asegurado.practicadeportespeligrosos}</b>
+                            Practica deportes peligrosos: <b>${asegurado.practicadeportespeligrosos}</b></br>
+                            Parentezco: <b>${asegurado.parentezco}</b>
                         </p>
                         <button class="btn btn-outline-danger ${classButton}">Eliminar</button>
                     </div>
@@ -174,6 +188,7 @@ class App {
 
             // Agregar asegurado en Seguro de Gastos médicos
             document.getElementById("btnAgregaAseguradoGastosMedicos").addEventListener("click", (e) => {
+                // Evitamos que recargue
                 e.preventDefault();
                 let formulario = document.querySelector("#formularioAseguradoGastosMedicos");
                 if(CrearItemAsegurado(
@@ -182,6 +197,7 @@ class App {
                     document.getElementById("txtFechaNacimientoGastosMedicos").value,
                     document.getElementById("txtOcupacionGastosMedicos").value,
                     document.getElementById("chkPracticaDeportesGastosMedicos").checked == true ? "Si" : "No",
+                    document.querySelector('input[name="radParentezco"]:checked').value
                 )){
                     formulario.reset();
                     document.getElementById("txtNombreContratanteGastosMedicos").focus()
@@ -189,7 +205,7 @@ class App {
             })
 
 
-            // Guardar registro
+            // GUARDAR REGISTRO
             document.getElementById("btnEnviarForm").addEventListener("click", () => {
                 // Si ha checado la aceptación de aviso de privacidad y etc., se intentará guardar
                 if (document.querySelector(".chkAceptacion").checked) {
@@ -216,9 +232,10 @@ class App {
                         alertify.alert('Atención', "Se guardó el registro").set('modal', false);
                         ocultasecciones();
                         limpiaDatos();
+                        sessionStorage.removeItem('asegurados')
                     }
                 } else {
-                    alertify.alert('Atención', "Debe aceptar aceptación de aviso de privacidad, uso de datos, términos y condiciones").set('modal', false);
+                    alertify.alert('Atención', "Falta aceptar aviso de privacidad, uso de datos, términos y condiciones").set('modal', false);
                 }
             })
         }
