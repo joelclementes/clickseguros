@@ -8,24 +8,23 @@ export function ValidaEmail(email){
   return respuesta;
 }
 
-// function Edad(FechaNacimiento) {
-//   let fechaNace = new Date(FechaNacimiento);
-//   let fechaActual = new Date();
+export function Edad(FechaNacimiento) {
+  let fechaNace = new Date(FechaNacimiento);
+  let fechaActual = new Date();
 
-//   let mes = fechaActual.getMonth();
-//   let dia = fechaActual.getDate();
-//   let año = fechaActual.getFullYear();
+  let mes = fechaActual.getMonth();
+  let dia = fechaActual.getDate();
+  let año = fechaActual.getFullYear();
 
-//   fechaActual.setDate(dia);
-//   fechaActual.setMonth(mes);
-//   fechaActual.setFullYear(año);
+  fechaActual.setDate(dia);
+  fechaActual.setMonth(mes);
+  fechaActual.setFullYear(año);
 
-//   let edad = Math.floor(
-//     (fechaActual - fechaNace) / (1000 * 60 * 60 * 24) / 365
-//   );
-//   localStorage.setItem("edadPaciente", edad);
-//   return edad;
-// }
+  let edad = Math.floor(
+    (fechaActual - fechaNace) / (1000 * 60 * 60 * 24) / 365
+  );
+  return edad;
+}
 
 // function fechaDeHoy() {
 //   let fechaActual = new Date();

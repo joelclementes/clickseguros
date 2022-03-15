@@ -1,6 +1,6 @@
 import {ValidaEmail} from "../modulos/funciones.js";
-export function GuardaSolicitudGastosMedicos(url) {
-  //Creamos objeto JSON con los valores que se capturaron
+export function GuardaSolicitudVidaAhorro(url) {
+  // CREAMOS OBJETO JSON CON LOS VALORES GENERALES QUE SE CAPTURARON
   const datoscapturados = {
     fecha: document.getElementById("txtFecha").value,
     nombre: document.getElementById("txtNombreSolicitante").value,
@@ -11,9 +11,21 @@ export function GuardaSolicitudGastosMedicos(url) {
     correo: document.getElementById("txtCorreoSolicitante").value,
     codigoepisodio: document.getElementById("txtCodigoDeEpisodio").value,
     tiposeguro: document.getElementById("cboTipoDeSeguro").options[document.getElementById("cboTipoDeSeguro").selectedIndex].text,
+    nombrecontratante: document.getElementById("txtNombreContratanteVidaAhorro").value,
+    generocontratante: document.getElementById("cboGeneroVidaAhorro").value,
+    fechanacimientocontratante: document.getElementById("txtFechaNacimientoVidaAhorro").value,
+    ocupacioncontratante: document.getElementById("txtOcupacionVidaAhorro").value,
+    conyugeproteccion: sessionStorage.getItem("proteccionAlConyuge"),
+    conyugefechadenacimiento: document.getElementById("txtFechaNacimientoVidaAhorroConyuge").value,
+    conyugeedad: document.getElementById("txtEdadVidaAhorroConyuge").value,
+    conyugegenero: document.getElementById("txtEdadVidaAhorroConyuge").value,
+    retornoinversionbaja: document.getElementById("retBaja").value,
+    retornoinversionmedia: document.getElementById("retMedia").value,
+    retornoinversionalta: document.getElementById("retAlta").value,
+    retornoinversionsuma: parseInt(document.getElementById("retBaja").value) + parseInt(document.getElementById("retMedia").value) + parseInt(document.getElementById("retAlta").value)
   }
 
-  // Validando campos
+  // VALIDAMOS CAMPOS DE DATOS GENERALES
   if (datoscapturados.nombre == '') {
     alertify.alert('Atención', "No ha ingresado nombre").set('modal', false); return '0';
   }
@@ -39,14 +51,34 @@ export function GuardaSolicitudGastosMedicos(url) {
     alertify.alert('Atención', "No ha ingresado código de episodio").set('modal', false); return '0';
   }
 
-  // Validamos que haya asegurados capturados
-  const arrayAseguradosGastosMedicos = JSON.parse(sessionStorage.getItem('asegurados'));
-  if (arrayAseguradosGastosMedicos === null || arrayAseguradosGastosMedicos == []) {
-    alertify.alert('Atención', "No ha ingresado datos de algún asegurado").set('modal', false); return '0';
+  if(datoscapturados.nombrecontratante==''){
+    alertify.alert('Atención', "Ingrese nombre del contratante").set('modal', false); return '0';
   }
 
+  if(datoscapturados.generocontratante=='0'){
+    alertify.alert('Atención', "Ingrese género del contratante").set('modal', false); return '0';
+  }
 
-  // Obtenemos los datos del archivo adjunto
+  if(datoscapturados.fechanacimientocontratante==''){
+    alertify.alert('Atención', "Ingrese fecha de nacimiento del contratante").set('modal', false); return '0';
+  }
+
+  if(datoscapturados.ocupacioncontratante==''){
+    alertify.alert('Atención', "Ingrese ocupación del contratante").set('modal', false); return '0';
+  }
+
+  // VALIDAMOS INFORMACIÓN DEL CÓNYUGE: FECHA DE NACIMIENTO, GÉNERO
+  if(datoscapturados.conyugeproteccion=='Si'){
+    if(datoscapturados.conyugefechadenacimiento=='' || datoscapturados.genero=='0'){
+        alertify.alert('Atención', "No ha ingresado datos válidos del cónyuge").set('modal', false); return '0';
+    }
+  }
+
+  if(datoscapturados.retornoinversionsuma<100){
+    alertify.alert('Atención', "La suma del retorno de inversión debe ser 100").set('modal', false); return '0';
+  }
+
+  // OBTENEMOS LOS DATOS DEL ARCHIVO ADJUNTO
   let inputFile = document.getElementById("archNombre");
   let par_archivo = inputFile.files[0];
   let nombreArchivo
@@ -57,7 +89,7 @@ export function GuardaSolicitudGastosMedicos(url) {
     tipoArchivo = par_archivo.type;
   }
 
-  //   Validamos que el archivo no lleve espacios ni caracteres especiales
+  //   VALIDAMOS QUE EL ARCHIVO NO LLEVE ESPACIOS NI CARACTERES ESPECIALES
   if (
     nombreArchivo != undefined &&
     (nombreArchivo.includes("á") || nombreArchivo.includes("à") || nombreArchivo.includes("ä") || nombreArchivo.includes("â") ||
@@ -80,12 +112,12 @@ export function GuardaSolicitudGastosMedicos(url) {
     return '0';
   }
 
-  //   Preparamos los parámetros que se enviarán al servidor
+  // PREPARAMOS LOS PARÁMETROS QUE SE ENVIARÁN AL SERVIDOR
   var parametrosAjax = new FormData();
   if (nombreArchivo == undefined) {
-    parametrosAjax.append("proceso", "SOLICITUDGASTOSMEDICOS_INSERTSINARCHIVOS");
+    parametrosAjax.append("proceso", "SOLICITUDVIDAAHORRO_INSERTSINARCHIVOS");
   } else {
-    parametrosAjax.append("proceso", "SOLICITUDGASTOSMEDICOS_INSERT");
+    parametrosAjax.append("proceso", "SOLICITUDVIDAAHORRO_INSERT");
   }
   parametrosAjax.append("fecha", datoscapturados.fecha);
   parametrosAjax.append("nombre", datoscapturados.nombre);
@@ -96,9 +128,19 @@ export function GuardaSolicitudGastosMedicos(url) {
   parametrosAjax.append("correo", datoscapturados.correo);
   parametrosAjax.append("codigoepisodio", datoscapturados.codigoepisodio);
   parametrosAjax.append("tiposeguro", datoscapturados.tiposeguro);
-  parametrosAjax.append("asegurados", JSON.stringify(arrayAseguradosGastosMedicos));
+  parametrosAjax.append('nombrecontratante', datoscapturados.nombrecontratante);
+  parametrosAjax.append('generocontratante', datoscapturados.generocontratante);
+  parametrosAjax.append('fechanacimientocontratante', datoscapturados.fechanacimientocontratante);
+  parametrosAjax.append('ocupacioncontratante', datoscapturados.ocupacioncontratante);
+  parametrosAjax.append('conyugeproteccion', datoscapturados.conyugeproteccion);
+  parametrosAjax.append('conyugefechadenacimiento', datoscapturados.conyugefechadenacimiento);
+  parametrosAjax.append('conyugeedad', datoscapturados.conyugeedad);
+  parametrosAjax.append('conyugegenero', datoscapturados.conyugegenero);
+  parametrosAjax.append('retornoinversionbaja', datoscapturados.retornoinversionbaja);
+  parametrosAjax.append('retornoinversionmedia', datoscapturados.retornoinversionmedia);
+  parametrosAjax.append('retornoinversionalta', datoscapturados.retornoinversionalta);
   parametrosAjax.append("archivo", par_archivo);
-
+  
   var res = 0;
   $.ajax({
     url: url,

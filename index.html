@@ -263,18 +263,21 @@
                     <div class="mb-3">
                         <label for="" style="display:block" class="form-label">Protección al cónyuge</label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="radProteccionConyuge" id="Si" value="Si">
-                            <label class="form-check-label" for="Si">Si</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="radProteccionConyuge" id="No" value="No">
-                            <label class="form-check-label" for="No">No</label>
-                          </div>
+                            <input class="form-check-input" type="radio" name="radProteccionConyuge" id="proteccionNo" value="No" checked>
+                            <label class="form-check-label" for="proteccionNo">No</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="radProteccionConyuge" id="proteccionSi" value="Si">
+                            <label class="form-check-label" for="proteccionSi">Si</label>
+                        </div>
+
+
                     </div>
-                    <div class="row">
-                        <div class="col">
+                    <div class="row datos-conyuge" style="display:none;">
+                        <h5>Datos del cónyuge</h5>
+                        <div class="d-flex justify-content-between">
                             <div class="mb-3">
-                                <label for="txtFechaNacimientoVidaAhorroConyuge" class="form-label">Fecha de nacimiento cónyuge</label>
+                                <label for="txtFechaNacimientoVidaAhorroConyuge" class="form-label">Fecha de nacimiento</label>
                                 <input type="date" class="form-control" name="txtFechaNacimientoVidaAhorroConyuge"
                                 id="txtFechaNacimientoVidaAhorroConyuge" placeholder="" required>
                             </div>
@@ -284,23 +287,53 @@
                                 id="txtEdadVidaAhorroConyuge" placeholder="" readonly>
                             </div>
                         </div>
+                        <div class="mb-3">
+                            <label for="cboGeneroVidaAhorroConyuge" class="form-label">Género</label>
+                            <select class="form-select" name="cboGeneroVidaAhorroConyuge" id="cboGeneroVidaAhorroConyuge"
+                                placeholder="">
+                                <option value="0" selected>Seleccione</option>
+                                <option value="MASCULINO">MASCULINO</option>
+                                <option value="FEMENINO">FEMENINO</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="cboGeneroVidaAhorroConyuge" class="form-label">Género cónyuge</label>
-                        <select class="form-select" name="cboGeneroVidaAhorroConyuge" id="cboGeneroVidaAhorroConyuge"
-                            placeholder="">
-                            <option value="0" selected>Seleccione</option>
-                            <option value="MASCULINO">MASCULINO</option>
-                            <option value="FEMENINO">FEMENINO</option>
-                        </select>
+                    <div class="row">
+                        <h5>Retorno de inversión <span class="badge bg-primary" id="sumaRetornoDeInversion"></span></h5>
+                        <!-- <h5><span class="badge bg-secondary" id="sumaRetornoDeInversion"></span></h5> -->
+                        <span for="retBaja" class="form-label" style="margin-bottom:-1px">Baja</span>
+                        <div class="d-flex justify-content-around mb-2">
+                            <input type="range" class="form-range" min="0" max="100" step="5" id="retBaja" value=0>
+                            <span id="porcRetBaja" style="padding-left:15px">0%</span>
+                        </div>
+                        <label for="retMedia" class="form-label" style="margin-bottom:-1px">Media</label>
+                        <div class="d-flex justify-content-around mb-2">
+                            <input type="range" class="form-range" min="0" max="100" step="5" id="retMedia" value="0">
+                            <span id="porcRetMedia" style="padding-left:15px">0%</span>
+                        </div>
+                        <label for="retAlta" class="form-label" style="margin-bottom:-1px">Alta</label>
+                        <div class="d-flex justify-content-around mb-2">
+                            <input type="range" class="form-range" min="0" max="100" step="5" id="retAlta" value="0">
+                            <span id="porcRetAlta" style="padding-left:15px">0%</span>
+                        </div>
                     </div>
-
                 </form>
             </div>
 
         </div>
     </section>
 
+    <section class="container form form__otro" id="Otro">
+        <div class="col-sm-12 col-md-6">
+            <form action="" id="formularioOtro">
+                <h4>Descripción</h4>
+                <div class="mb-3">
+                    <!-- <label for="txtDescripcionOtro" class="form-label">Descripción</label> -->
+                    <textarea type="text" class="form-control" name="txtDescripcionOtro"
+                        id="txtDescripcionOtro" placeholder="" rows="5" required></textarea>
+                </div>
+            </form>
+        </div>
+    </section>
 
     <section class="container form" id="frmAdjuntararchivo">
         <div class="row">

@@ -1,11 +1,15 @@
 import { GuardaSolicitudVehiculo } from "../modulos/GuardaSolicitudVehiculo.js";
 import { GuardaSolicitudGastosMedicos } from "../modulos/GuardaSolicitudGastosMedicos.js" ;
+import { GuardaSolicitudVidaAhorro } from "../modulos/GuardaSolicitudVidaAhorro.js";
+import { GuardaSolicitudOtro } from "../modulos/GuardaSolicitudOtro.js";
+import {Edad} from "../modulos/funciones.js";
 class App {
 
     constructor(reset = false) {
         sessionStorage.removeItem('asegurados')
         let arrayAseguradosGastosMedicos = [];
         let tarjetasAsegurados = document.getElementById("tarjetasGastosMedicos");
+        let totalPorcentaje = 0;
 
         const urlGet="http://localhost/clicksegurosbackend/proceso.php/";
         const urlPost = "http://localhost/clicksegurosbackend/procesopost.php/";
@@ -163,6 +167,11 @@ class App {
             }
         }
 
+        function sumaPorcentaje(){
+            const total = parseInt(document.getElementById("retBaja").value) + parseInt(document.getElementById("retMedia").value) + parseInt(document.getElementById("retAlta").value);
+            return total;
+        }
+
         if (reset) {
             //Establecemos la fecha actual
             document.querySelector("#txtFecha").value = fechaDeHoy();
@@ -204,6 +213,68 @@ class App {
                 }
             })
 
+            // OCULTA O MUESTRA LOS DATOS DEL CÓNYUGT SEGÚN LA SELECCIÓN DEL RADIOBUTTON
+            document.getElementById("proteccionNo").addEventListener("change", () => {
+                document.getElementById("txtFechaNacimientoVidaAhorroConyuge").value="";
+                document.getElementById("txtEdadVidaAhorroConyuge").value="";
+                document.getElementById("cboGeneroVidaAhorroConyuge").value="0";
+                document.querySelector(".datos-conyuge").setAttribute('style', 'display:none;');
+                sessionStorage.setItem('proteccionAlConyuge','No');
+            })
+            document.getElementById("proteccionSi").addEventListener("change", () => {
+                document.querySelector(".datos-conyuge").setAttribute('style', '');
+                sessionStorage.setItem('proteccionAlConyuge','Si');
+            })
+
+            const fechaNacimientoConyuge = document.getElementById("txtFechaNacimientoVidaAhorroConyuge");
+            fechaNacimientoConyuge.addEventListener("change", () => {
+                let edadCalculada = Edad(fechaNacimientoConyuge.value);
+                if(edadCalculada<100){
+                    document.getElementById("txtEdadVidaAhorroConyuge").value = Edad(fechaNacimientoConyuge.value);
+                } else {
+                    document.getElementById("txtEdadVidaAhorroConyuge").value = "";
+                }
+            })
+
+            // CAMBIO DE PORCENTAJE DE RETORNO DE INVERSIÓN
+            let elBaja = document.getElementById("retBaja");
+            let elMedia = document.getElementById("retMedia");
+            let elAlta = document.getElementById("retAlta");
+            document.getElementById("porcRetBaja").innerHTML = elBaja.value + "%";
+            document.getElementById("porcRetMedia").innerHTML = elMedia.value + "%";
+            document.getElementById("porcRetAlta").innerHTML = elAlta.value + "%";
+            document.getElementById("sumaRetornoDeInversion").innerHTML = `${sumaPorcentaje()}%`;
+
+            elBaja.addEventListener("change", () =>{
+                document.getElementById("porcRetBaja").innerHTML = elBaja.value + "%";
+                totalPorcentaje = sumaPorcentaje();
+                if(totalPorcentaje>100){
+                    elBaja.value = elBaja.value - (totalPorcentaje - 100);
+                    document.getElementById("porcRetBaja").innerHTML = elBaja.value + "%";
+                    sessionStorage.setItem('totalPorcentaje',totalPorcentaje);
+                }
+                document.getElementById("sumaRetornoDeInversion").innerHTML = `${sumaPorcentaje()}%`;
+            })
+            elMedia.addEventListener("change", () => {
+                document.getElementById("porcRetMedia").innerHTML = elMedia.value + "%";
+                totalPorcentaje = sumaPorcentaje();
+                if(totalPorcentaje>100){
+                    elMedia.value = elMedia.value - (totalPorcentaje - 100);
+                    document.getElementById("porcRetMedia").innerHTML = elMedia.value + "%";
+                    sessionStorage.setItem('totalPorcentaje',totalPorcentaje);
+                }
+                document.getElementById("sumaRetornoDeInversion").innerHTML = `${sumaPorcentaje()}%`;
+            })
+            elAlta.addEventListener("change", () => {
+                document.getElementById("porcRetAlta").innerHTML = elAlta.value + "%";
+                totalPorcentaje = sumaPorcentaje();
+                if(totalPorcentaje>100){
+                    elAlta.value = elAlta.value - (totalPorcentaje - 100);
+                    document.getElementById("porcRetAlta").innerHTML = elAlta.value + "%";
+                    sessionStorage.setItem('totalPorcentaje',totalPorcentaje);
+                }
+                document.getElementById("sumaRetornoDeInversion").innerHTML = `${sumaPorcentaje()}%`;
+            })
 
             // GUARDAR REGISTRO
             document.getElementById("btnEnviarForm").addEventListener("click", () => {
@@ -227,12 +298,23 @@ class App {
                             break;
                         case 'GastosMedicos':
                             resultado = GuardaSolicitudGastosMedicos(urlPost);
+                            break;
+                        case 'VidaAhorro':
+                            resultado = GuardaSolicitudVidaAhorro(urlPost);
+                            break;
+                        case 'Otro':
+                            resultado = GuardaSolicitudOtro(urlPost);
+                            break;
                     }
                     if (resultado == 1) {
                         alertify.alert('Atención', "Se guardó el registro").set('modal', false);
                         ocultasecciones();
                         limpiaDatos();
-                        sessionStorage.removeItem('asegurados')
+                        document.getElementById("formularioAseguradoVidaAhorro").reset();
+                        document.getElementById("formularioOtro").reset();
+                        sessionStorage.removeItem('asegurados');
+                        sessionStorage.removeItem('totalPorcentaje');
+                        sessionStorage.removeItem('proteccionAlConyuge');
                     }
                 } else {
                     alertify.alert('Atención', "Falta aceptar aviso de privacidad, uso de datos, términos y condiciones").set('modal', false);

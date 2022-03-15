@@ -1,6 +1,6 @@
 import {ValidaEmail} from "../modulos/funciones.js";
-export function GuardaSolicitudGastosMedicos(url) {
-  //Creamos objeto JSON con los valores que se capturaron
+export function GuardaSolicitudOtro(url) {
+  // CREAMOS OBJETO JSON CON LOS VALORES GENERALES QUE SE CAPTURARON
   const datoscapturados = {
     fecha: document.getElementById("txtFecha").value,
     nombre: document.getElementById("txtNombreSolicitante").value,
@@ -11,9 +11,10 @@ export function GuardaSolicitudGastosMedicos(url) {
     correo: document.getElementById("txtCorreoSolicitante").value,
     codigoepisodio: document.getElementById("txtCodigoDeEpisodio").value,
     tiposeguro: document.getElementById("cboTipoDeSeguro").options[document.getElementById("cboTipoDeSeguro").selectedIndex].text,
+    otro: document.querySelector("#txtDescripcionOtro").value
   }
 
-  // Validando campos
+  // VALIDAMOS CAMPOS DE DATOS GENERALES
   if (datoscapturados.nombre == '') {
     alertify.alert('Atención', "No ha ingresado nombre").set('modal', false); return '0';
   }
@@ -39,14 +40,12 @@ export function GuardaSolicitudGastosMedicos(url) {
     alertify.alert('Atención', "No ha ingresado código de episodio").set('modal', false); return '0';
   }
 
-  // Validamos que haya asegurados capturados
-  const arrayAseguradosGastosMedicos = JSON.parse(sessionStorage.getItem('asegurados'));
-  if (arrayAseguradosGastosMedicos === null || arrayAseguradosGastosMedicos == []) {
-    alertify.alert('Atención', "No ha ingresado datos de algún asegurado").set('modal', false); return '0';
+  if(datoscapturados.otro==''){
+    alertify.alert('Atención', "Ingrese descripción").set('modal', false); return '0';
   }
 
 
-  // Obtenemos los datos del archivo adjunto
+  // OBTENEMOS LOS DATOS DEL ARCHIVO ADJUNTO
   let inputFile = document.getElementById("archNombre");
   let par_archivo = inputFile.files[0];
   let nombreArchivo
@@ -57,7 +56,7 @@ export function GuardaSolicitudGastosMedicos(url) {
     tipoArchivo = par_archivo.type;
   }
 
-  //   Validamos que el archivo no lleve espacios ni caracteres especiales
+  //   VALIDAMOS QUE EL ARCHIVO NO LLEVE ESPACIOS NI CARACTERES ESPECIALES
   if (
     nombreArchivo != undefined &&
     (nombreArchivo.includes("á") || nombreArchivo.includes("à") || nombreArchivo.includes("ä") || nombreArchivo.includes("â") ||
@@ -80,12 +79,12 @@ export function GuardaSolicitudGastosMedicos(url) {
     return '0';
   }
 
-  //   Preparamos los parámetros que se enviarán al servidor
+  // PREPARAMOS LOS PARÁMETROS QUE SE ENVIARÁN AL SERVIDOR
   var parametrosAjax = new FormData();
   if (nombreArchivo == undefined) {
-    parametrosAjax.append("proceso", "SOLICITUDGASTOSMEDICOS_INSERTSINARCHIVOS");
+    parametrosAjax.append("proceso", "SOLICITUDOTRO_INSERTSINARCHIVOS");
   } else {
-    parametrosAjax.append("proceso", "SOLICITUDGASTOSMEDICOS_INSERT");
+    parametrosAjax.append("proceso", "SOLICITUDOTRO_INSERT");
   }
   parametrosAjax.append("fecha", datoscapturados.fecha);
   parametrosAjax.append("nombre", datoscapturados.nombre);
@@ -96,9 +95,9 @@ export function GuardaSolicitudGastosMedicos(url) {
   parametrosAjax.append("correo", datoscapturados.correo);
   parametrosAjax.append("codigoepisodio", datoscapturados.codigoepisodio);
   parametrosAjax.append("tiposeguro", datoscapturados.tiposeguro);
-  parametrosAjax.append("asegurados", JSON.stringify(arrayAseguradosGastosMedicos));
+  parametrosAjax.append('descripcionotro', datoscapturados.otro);
   parametrosAjax.append("archivo", par_archivo);
-
+  
   var res = 0;
   $.ajax({
     url: url,

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-03-2022 a las 22:05:40
+-- Tiempo de generación: 15-03-2022 a las 22:29:28
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 7.3.29
 
@@ -66,8 +66,18 @@ CREATE TABLE `solicitud` (
   `correo` varchar(100) NOT NULL,
   `codigoepisodio` varchar(50) NOT NULL,
   `tiposeguro` varchar(50) NOT NULL,
+  `descripcionotro` text NOT NULL,
   `archivo` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `solicitud`
+--
+
+INSERT INTO `solicitud` (`id`, `fecha`, `nombre`, `apellidos`, `pais`, `codigopostal`, `celular`, `correo`, `codigoepisodio`, `tiposeguro`, `descripcionotro`, `archivo`) VALUES
+(1, '2022-03-15', 'Joel', 'Clemente Serrano', 'México', '91640', '2284959759', 'joelcs73@gmail.com', '123', 'Vida - ahorro', '', '2284959759_FacturaDiors2022.pdf'),
+(2, '2022-03-15', 'Joel', 'clemente', 'méxico', '91640', '2284', 'joelcs73@gmail.com', '321', 'Otro', 'Prueba de descripción', ''),
+(3, '2022-03-15', 'Joel', 'Clemente', 'México', '91640', '2284959759', 'joelcs73@hotmail.com', '654', 'Otro', 'Segunda prueba de descripción.', '2284959759_RecetaMuestra.pdf');
 
 -- --------------------------------------------------------
 
@@ -104,6 +114,28 @@ CREATE TABLE `solicitudsegurovehiculo` (
   `tipodecobertura` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `solicitudsegurovidaahorro`
+--
+
+CREATE TABLE `solicitudsegurovidaahorro` (
+  `id` int(11) NOT NULL,
+  `idSolicitud` int(11) NOT NULL,
+  `nombrecontratante` varchar(200) NOT NULL,
+  `generocontratante` int(11) NOT NULL,
+  `fechanacimientocontratante` date NOT NULL,
+  `ocupacioncontratante` varchar(200) NOT NULL,
+  `conyugeproteccion` varchar(2) NOT NULL,
+  `conyugefechadenacimiento` date NOT NULL,
+  `conyugeedad` int(11) NOT NULL,
+  `conyugegenero` varchar(10) NOT NULL,
+  `retornoinversionbaja` int(11) NOT NULL,
+  `retornoinversionmedia` int(11) NOT NULL,
+  `retornoinversionalta` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Índices para tablas volcadas
 --
@@ -133,6 +165,12 @@ ALTER TABLE `solicitudsegurovehiculo`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `solicitudsegurovidaahorro`
+--
+ALTER TABLE `solicitudsegurovidaahorro`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -146,7 +184,7 @@ ALTER TABLE `cattiposeguro`
 -- AUTO_INCREMENT de la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `solicitudsegurogastosmedicos`
@@ -158,6 +196,12 @@ ALTER TABLE `solicitudsegurogastosmedicos`
 -- AUTO_INCREMENT de la tabla `solicitudsegurovehiculo`
 --
 ALTER TABLE `solicitudsegurovehiculo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `solicitudsegurovidaahorro`
+--
+ALTER TABLE `solicitudsegurovidaahorro`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

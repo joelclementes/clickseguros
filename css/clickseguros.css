@@ -1,8 +1,8 @@
 :root {
   --background: linear-gradient(135deg, #d63c167a 0%, #2f40557a 100%);
-  --backgroundvehiculos: linear-gradient(45deg, #00000096 0%, #b4b4b4c2 100%);
+  --backgroundvehiculos: linear-gradient(45deg, #00000096 10%, #86bbff96 100%);
   --backgroundgastosmedicos: linear-gradient(45deg, #00000096 0%, #86bbff96 100%);
-  --backgroundvida: linear-gradient(45deg, #00000096 10%, #afd8ff48 100%);
+  --backgroundvida: linear-gradient(45deg, #00000096 10%, #86bbff96 100%);
   }
 
 *{
@@ -68,7 +68,7 @@ body {
 }
 
 .form__vehiculos{
-  background: #f1f1f1;
+  /* background: #f1f1f1; */
   color:white;
   text-shadow: 2px 2px 3px rgb(0, 0, 0);
   background-image: var(--backgroundvehiculos),url('../images/segurovehiculo.jpg');
@@ -90,7 +90,7 @@ body {
 }
 
 .form__vidaahorro{
-  background: #baf1c3;
+  /* background: #baf1c3; */
   color:white;
   text-shadow: 2px 2px 3px rgb(0, 0, 0);
   background-image: var(--backgroundvida),url('../images/segurodevida.jpg');
@@ -98,7 +98,16 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
 
+.form__otro{
+  color:white;
+  text-shadow: 2px 2px 3px rgb(0, 0, 0);
+  background-image: var(--backgroundvida),url('../images/otros.jpg');
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .form__archivoadjunto{
