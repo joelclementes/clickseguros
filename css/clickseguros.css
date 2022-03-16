@@ -81,7 +81,7 @@ body {
 .form__gastosmedicos{
   /* background: #bacdf1; */
   color:white;
-  text-shadow: 2px 2px 3px rgb(0, 0, 0);
+  /* text-shadow: 2px 2px 3px rgb(0, 0, 0); */
   background-image: var(--backgroundgastosmedicos),url('../images/segurogastosmedicos.jpg');
 
   background-repeat: no-repeat;
@@ -113,10 +113,12 @@ body {
 .form__archivoadjunto{
   background: #f1f1f1;
 }
+
 .card-asegurado{
+  color:#000000;
   background-color: #feffeb;
   border-radius: 10px;
-  box-shadow: 2px 3px 5px -3px rgba(0,0,0,0.75);
+  /* box-shadow: 2px 3px 5px -3px rgba(255, 255, 255, 0.75); */
 }
 
 input:invalid {
