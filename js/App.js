@@ -286,6 +286,17 @@ class App {
                      Estos los toma del campo idSection en la tabla cattiposeguro de la BD
                      Y según la opción invocaremos la función que guardará en la BD
                      */
+
+                    var response = grecaptcha.getResponse();
+                    
+                    if(response.length == 0) {
+                        document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;">This field is required.</span>';
+                        return;
+                    }else{
+                        document.getElementById('g-recaptcha-error').innerHTML = '';
+                    }
+                    
+
                     const opcion = document.getElementById("cboTipoDeSeguro").value;
                     let resultado = 0;
                     switch (opcion) {

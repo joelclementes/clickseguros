@@ -25,6 +25,9 @@
     <!-- Mis estilos -->
     <link rel="stylesheet" href="./css/clickseguros.css">
 
+    <!-- captcha script -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 
 <body class="container">
@@ -359,8 +362,9 @@
                         Aceptación de aviso de privacidad, uso de datos, términos y condiciones
                     </label>
                 </div>
+                <div class="g-recaptcha" data-sitekey="6LfSb-geAAAAAMf8lomWfl9HGJ1dYAMdrQaemFbK" data-callback="verifyCaptcha"></div>
+                <div id="g-recaptcha-error"></div>
                 <button type="button" class="btn btn-success" id="btnEnviarForm">Enviar</button>
-
             </div>
         </div>
     </section>
